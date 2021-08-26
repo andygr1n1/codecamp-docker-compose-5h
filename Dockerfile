@@ -1,12 +1,12 @@
 FROM node
 
-WORKDIR /app
+WORKDIR /camp
 
-COPY package.json .
+COPY package.json /camp
 
 RUN npm install
 
-COPY . .
+COPY . /camp
 
 ENV PORT 9009
 
