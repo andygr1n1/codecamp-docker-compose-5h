@@ -1,10 +1,17 @@
-FROM node
+FROM node:15
 
 WORKDIR /camp
 
 COPY package.json /camp
 
-RUN npm install
+ARG NODE_ENV
+
+RUN npm install -g ts-node
+
+RUN if [ "NODE_ENV" = "dev" ]; \
+        then npm install; \
+        else npm install --only=production; \
+        fi
 
 COPY . /camp
 

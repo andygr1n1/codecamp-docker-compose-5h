@@ -13,3 +13,9 @@ rmI:
 
 docker-compose-dev:
 	docker-compose -f docker-compose.yml -f docker-compose-dev.yml up -d --build
+
+docker-compose-prod:
+	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
+
+docker-compose-down:
+	docker-compose down -v
