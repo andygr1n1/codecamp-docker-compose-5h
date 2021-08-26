@@ -1,0 +1,13 @@
+version: "3"
+services:
+  code-camp-backend:
+    build:
+      context: .
+      args:
+        NODE_ENV: dev
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - ./:/camp
+      - /app/node_modules
+    command: npm run dev
