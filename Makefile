@@ -18,4 +18,6 @@ docker-compose-prod:
 	docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 
 docker-compose-down:
-	docker-compose down -v
+	docker-compose down
+docker-mongo-open:
+	docker exec -it code-camp-mongo-container mongo -u "admin" -p "password"

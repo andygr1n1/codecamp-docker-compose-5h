@@ -1,8 +1,22 @@
 version: "3"
 services:
+  code-camp-mongo:
+    image: mongo:4.0
+    container_name: code-camp-mongo-container
+    environment:
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_DATABASE=mydatabase
+    restart: always
+    volumes:
+      - mongo-code-camp-db:/data/db
   code-camp-backend:
+    container_name: code-camp-backend-container
     build: .
     ports:
       - "9009:9009"
     environment:
       - PORT=9009
+    restart: always
+volumes:
+  mongo-code-camp-db:
