@@ -20,4 +20,4 @@ docker-compose-prod:
 docker-compose-down:
 	docker-compose down
 docker-mongo-open:
-	docker exec -it code-camp-mongo-container mongo -u "admin" -p "password"
+	docker exec -it code-camp-mongo-container mongo -u "grini" -p "grini"

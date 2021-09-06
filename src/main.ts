@@ -1,16 +1,39 @@
 import express from 'express'
 import mongoose from 'mongoose'
+import { configs } from '../config/config'
 const app = express()
+import { postRouter } from './routes/postRoutes'
+
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = configs
+
+const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
+
+// const connectManager = () => {
+//     mongoose
+//         .connect(mongoURL)
+//         .then(() => console.log('success connect to db'))
+//         .catch((e) => {
+//             console.log('error connecting to db', e)
+//             setTimeout(connectManager, 10000)
+//         })
+// }
+// connectManager()
 
 mongoose
-    .connect('mongodb://admin:password@code-camp-mongo/?authSource=admin')
+    .connect(mongoURL)
     .then(() => console.log('success connect to db'))
-    .catch((e) => console.log('error connecting to db', e))
+    .then(() => {
+        app.get('/', (_, res, next) => {
+            res.send('<h1> 🚀 🚀 🚀EXPRESS APP GO! 🚀 🚀 🚀 </h1>')
+            next()
+        })
 
-app.get('/', (req, res) => {
-    res.send('<h1> 🚀 🚀 🚀EXPRESS APP 🚀 🚀 🚀 </h1>')
-})
+        app.use('/posts', postRouter)
+    })
+    .catch((e) => {
+        console.log('error connecting to db', e)
+    })
 
-const PORT: number | string = process.env.PORT || 7729
+const PORT: number | string = process.env.PORT || 9909
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

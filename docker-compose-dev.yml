@@ -7,6 +7,8 @@ services:
         NODE_ENV: dev
     environment:
       - NODE_ENV=dev
+      - MONGO_USER=grini
+      - MONGO_PASSWORD=grini
     volumes:
       - ./:/camp
       - /app/node_modules

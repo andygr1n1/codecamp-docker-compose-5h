@@ -4,8 +4,8 @@ services:
     image: mongo:4.0
     container_name: code-camp-mongo-container
     environment:
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=grini
+      - MONGO_INITDB_ROOT_USERNAME=grini
       - MONGO_INITDB_DATABASE=mydatabase
     restart: always
     volumes:
@@ -18,5 +18,7 @@ services:
     environment:
       - PORT=9009
     restart: always
+    depends_on:
+      - code-camp-mongo
 volumes:
   mongo-code-camp-db:
