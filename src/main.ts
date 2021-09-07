@@ -1,13 +1,18 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import { configs } from '../config/config'
-const app = express()
 import { postRouter } from './routes/postRoutes'
+
+const app = express()
+
+app.use(express.json())
 
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = configs
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
+// ***RECONNECT FUNCTION***
+// *** ->> ***
 // const connectManager = () => {
 //     mongoose
 //         .connect(mongoURL)

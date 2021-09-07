@@ -1,6 +1,7 @@
 import express from 'express'
-import { getAllPosts } from '../controllers/postController'
+import { getAllPosts, getOnePost, createPost, updatePost, deletePost } from '../controllers/postController'
 
 export const postRouter = express.Router()
 
-postRouter.route('/').get(getAllPosts)
+postRouter.route('/').get(getAllPosts).post(createPost)
+postRouter.route('/:id').get(getOnePost).patch(updatePost).delete(deletePost)
