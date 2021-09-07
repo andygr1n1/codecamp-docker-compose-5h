@@ -1,9 +1,10 @@
 import mongoose from 'mongoose'
+import { IPost } from '../types'
 
 const postSchema = new mongoose.Schema({
     title: {
         type: String,
-        require: [true, 'Post must have title'],
+        required: [true, 'Post must have title'],
     },
     body: {
         type: String,
@@ -11,4 +12,4 @@ const postSchema = new mongoose.Schema({
     },
 })
 
-export const Post = mongoose.model('Post', postSchema)
+export const Post = mongoose.model<IPost>('Post', postSchema)

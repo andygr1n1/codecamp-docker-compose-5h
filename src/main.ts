@@ -2,6 +2,7 @@ import express from 'express'
 import mongoose from 'mongoose'
 import { configs } from '../config/config'
 import { postRouter } from './routes/postRoutes'
+import { authRouter } from './routes/userRoutes';
 
 const app = express()
 
@@ -34,6 +35,7 @@ mongoose
         })
 
         app.use('/posts', postRouter)
+        app.use('/auth', authRouter)
     })
     .catch((e) => {
         console.log('error connecting to db', e)
