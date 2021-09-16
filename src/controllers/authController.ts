@@ -13,6 +13,7 @@ export const signUp = async (req: any, res: any, next: NextFunction) => {
             username,
             password: hashPassword,
         })
+        req.session.user = newUser
         res.status(201).json({
             status: 'success',
             data: {
@@ -49,7 +50,7 @@ export const login = async (req: any, res: any, next: NextFunction) => {
                 message: 'password is invalid',
             })
         }
-
+        req.session.user = user
         res.status(200).json({
             status: 'success login',
         })

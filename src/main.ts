@@ -1,14 +1,44 @@
 import express from 'express'
+import cors from 'cors'
 import mongoose from 'mongoose'
 import { configs } from '../config/config'
 import { postRouter } from './routes/postRoutes'
-import { authRouter } from './routes/userRoutes';
+import { authRouter } from './routes/userRoutes'
+import session from 'express-session'
+import redis from 'redis'
+import connectRedis from 'connect-redis'
+
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, REDIS_URL, REDIS_PORT, REDIS_SECRET } = configs
+
+let redisStore = connectRedis(session)
+let redisClient = redis.createClient({
+    host: REDIS_URL,
+    port: +REDIS_PORT,
+})
 
 const app = express()
 
-app.use(express.json())
+app.enable('trust proxy')
 
-const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = configs
+app.use(cors({
+    
+}))
+
+app.use(
+    session({
+        store: new redisStore({ client: redisClient }),
+        secret: REDIS_SECRET,
+        cookie: {
+            secure: false,
+            httpOnly: true,
+            maxAge: 300000,
+        },
+        resave: false,
+        saveUninitialized: false,
+    }),
+)
+
+app.use(express.json())
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`
 
@@ -29,13 +59,13 @@ mongoose
     .connect(mongoURL)
     .then(() => console.log('success connect to db'))
     .then(() => {
-        app.get('/', (_, res, next) => {
+        app.get('/api/', (_, res, next) => {
             res.send('<h1> 🚀 🚀 🚀EXPRESS APP GO! 🚀 🚀 🚀 </h1>')
             next()
         })
 
-        app.use('/posts', postRouter)
-        app.use('/auth', authRouter)
+        app.use('/api/v1/posts', postRouter)
+        app.use('/api/v1/auth', authRouter)
     })
     .catch((e) => {
         console.log('error connecting to db', e)

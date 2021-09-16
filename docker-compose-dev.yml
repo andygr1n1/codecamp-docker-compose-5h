@@ -1,5 +1,8 @@
 version: "3"
 services:
+  code-camp-nginx:
+    ports:
+      - "9012:80"
   code-camp-backend:
     build:
       context: .
@@ -9,6 +12,7 @@ services:
       - NODE_ENV=dev
       - MONGO_USER=grini
       - MONGO_PASSWORD=grini
+      - REDIS_SECRET=secret
     volumes:
       - ./:/camp
       - /app/node_modules
