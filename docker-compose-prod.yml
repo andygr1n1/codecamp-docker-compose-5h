@@ -2,7 +2,7 @@ version: "3"
 services:
   code-camp-nginx:
     ports:
-      - "9010:80"
+      - "80:80"
   code-camp-backend:
     build:
       context: .
@@ -10,4 +10,7 @@ services:
         NODE_ENV: prod
     environment:
       - NODE_ENV=prod
+      - MONGO_USER=grini
+      - MONGO_PASSWORD=grini
+      - REDIS_SECRET=secret
     command: npm start
