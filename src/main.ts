@@ -60,7 +60,7 @@ mongoose
     .then(() => console.log('success connect to db'))
     .then(() => {
         app.get('/api/', (_, res, next) => {
-            res.send('<h1> 🚀 🚀 🚀EXPRESS APP GO! 🚀 🚀 🚀 </h1>')
+            res.send('<h1> 🚀 🚀 🚀EXPRESS APP GO!!! 🚀 🚀 🚀 </h1>')
             next()
         })
 
