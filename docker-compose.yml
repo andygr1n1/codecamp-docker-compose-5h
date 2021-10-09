@@ -25,6 +25,7 @@ services:
   code-camp-backend:
     container_name: code-camp-backend-container
     build: .
+    image: andygr1n1/docker-devops-5h:latest
     # ports:
     #   - "9009:9009"
     environment:

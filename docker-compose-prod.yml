@@ -2,7 +2,7 @@ version: "3"
 services:
   code-camp-nginx:
     ports:
-      - "80:80"
+      - "9010:80"
   code-camp-backend:
     build:
       context: .
